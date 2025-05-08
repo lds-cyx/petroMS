@@ -1,0 +1,31 @@
+server:
+  port: 8081
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: petroMS
+  main:
+    allow-circular-references: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.153.130:3306/petroMS?serverTimezone=UTC&userUnicode=true&useSSL=false&
+    username: root
+    password: 123
+
+petro:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: petroMS
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: Authorization
+
+
+
+#  redis:
+#    database: ${sky.redis.database}
+#    host: ${sky.redis.host}
+
