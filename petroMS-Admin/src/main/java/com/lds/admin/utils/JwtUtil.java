@@ -1,4 +1,4 @@
-package com.lds.base.utils;
+package com.lds.admin.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -53,12 +53,13 @@ public class JwtUtil {
                 .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
                 // 设置需要解析的jwt
                 .parseClaimsJws(token).getBody();
+
         return claims;
     }
 
     public static void main(String[] args) {
         Claims claims = parseJWT("petroMS",
-                "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VJZCI6IjUxIiwiZXhwIjoxNzQ0NDU4NTAzLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoidGVzdCJ9XX0.-ujTsi9z82Wm7WWti4mzIZrWsPtYJCJr093WLW7oLac");
+                "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDcxOTkwNjgsInVzZXJJZCI6MSwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6ImFkZCJ9LHsiYXV0aG9yaXR5IjoiZGVsZXRlIn0seyJhdXRob3JpdHkiOiJzZWxlY3QifSx7ImF1dGhvcml0eSI6InVwZGF0ZSJ9XX0.RjHs7dwATAydhkT-_3yuI_-p-spymvWQax6qS5QuBgM");
         System.out.println(claims);
     }
 

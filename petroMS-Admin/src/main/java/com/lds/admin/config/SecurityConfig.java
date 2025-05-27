@@ -68,8 +68,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/level1").hasRole("vlp1") // 这个路劲要有vip1才行
                 .antMatchers().permitAll()
                 .anyRequest().permitAll()//其它请求全部放行
-                .and()
-                .formLogin(); // 没有权限会自动到登陆界面  需要开启登陆界面 /login
+                .and();
+//                .formLogin(); 没有权限会自动到登陆界面  需要开启登陆界面 /login
         http.logout().logoutUrl("/logout");//退出地址
 
         // 将 JwtAuthenticationFilter 添加到过滤器链中

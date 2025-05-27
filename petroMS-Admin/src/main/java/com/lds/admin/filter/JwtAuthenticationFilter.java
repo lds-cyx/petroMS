@@ -1,7 +1,8 @@
 package com.lds.admin.filter;
 
-import com.lds.base.properties.JwtProperties;
-import com.lds.base.utils.JwtUtil;
+import com.lds.admin.properties.JwtProperties;
+import com.lds.base.expection.PMSException;
+import com.lds.admin.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -66,7 +67,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
         if(StringUtils.isBlank(token)) {
-            throw new RuntimeException("没有令牌!");
+            PMSException.cast("没有令牌!");
         }
 
         //2、校验令牌

@@ -1,6 +1,5 @@
-package com.lds.base.utils;
+package com.lds.admin.utils;
 
-import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,12 +16,12 @@ import java.time.LocalDateTime;
 @Slf4j
 public class SecurityUtil {
 
-    public static Integer getUserId() {
+    public static Long getUserId() {
         try {
             Object principalObj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principalObj instanceof Integer) {
+            if (principalObj instanceof Long) {
                 //取出用户身份信息
-                Integer userId = (Integer) principalObj;
+                Long userId = (Long) principalObj;
                 //将json转成对象
 //                User user = JSON.parseObject(principal, User.class);
                 return userId;

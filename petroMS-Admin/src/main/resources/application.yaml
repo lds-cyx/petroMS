@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   profiles:
@@ -14,6 +14,17 @@ spring:
     username: root
     password: 123
 
+
+web:
+  rsa:
+    publicKeyPath: classpath:rsa_public_key.pem
+    privateKeyPath: classpath:rsa_private_key.pem
+
+logging:
+  config: classpath:log4j2-dev.xml
+#  level:
+#    org.springframework.boot.autoconfigure: ERROR
+
 petro:
   jwt:
     # 设置jwt签名加密时使用的秘钥
@@ -22,6 +33,10 @@ petro:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: Authorization
+
+security:
+  encrypt:
+    key: "lds666"
 
 
 

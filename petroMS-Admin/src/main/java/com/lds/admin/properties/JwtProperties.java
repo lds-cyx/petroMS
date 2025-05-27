@@ -1,4 +1,4 @@
-package com.lds.base.properties;
+package com.lds.admin.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
