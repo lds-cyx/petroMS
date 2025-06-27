@@ -1,11 +1,15 @@
 package com.lds.admin.utils;
 
+import com.lds.base.expection.PMSException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 /**
  * @author Mr.M
@@ -27,10 +31,24 @@ public class SecurityUtil {
                 return userId;
             }
         } catch (Exception e) {
-//            log.error("获取当前登录用户身份出错:{}", e.getMessage());
-            e.printStackTrace();
+            log.error("获取当前登录用户身份出错:{}", e.getMessage());
+            PMSException.cast("获取当前登录用户身份出错");
         }
 
+        return null;
+    }
+
+    public static String getAesKey() {
+        try {
+            Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
+            if (details instanceof String) {
+                String aesKey = (String) details;
+                return aesKey;
+            }
+        } catch (Exception e) {
+            log.error("获取AesKey出错:{}", e.getMessage());
+            PMSException.cast("获取AesKey出错");
+        }
         return null;
     }
 
