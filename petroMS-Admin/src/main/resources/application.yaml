@@ -17,8 +17,10 @@ spring:
 
 web:
   rsa:
-    publicKeyPath: classpath:rsa_public_key.pem
-    privateKeyPath: classpath:rsa_private_key.pem
+    keyPath: classpath:key/server_private.pfx
+    keyPassword: 123456
+    clientPublic: classpath:key/client_public.pem
+
 
 logging:
   config: classpath:log4j2-dev.xml

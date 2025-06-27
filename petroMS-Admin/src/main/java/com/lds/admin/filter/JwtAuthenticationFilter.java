@@ -1,19 +1,19 @@
 package com.lds.admin.filter;
 
 import com.lds.admin.properties.JwtProperties;
-import com.lds.base.expection.PMSException;
 import com.lds.admin.utils.JwtUtil;
+import com.lds.base.expection.PMSException;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String requestUrl = request.getRequestURI();
         AntPathMatcher pathMatcher = new AntPathMatcher();
-        //白名单放行
+        //白名单放行 /buy
         for (String url : whitelist) {
             if (pathMatcher.match(url, requestUrl)) {
                 filterChain.doFilter(request, response);
@@ -78,6 +78,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Integer userId = claims.get("userId",Integer.class);
             log.info("当前用户id:{}", userId);
 
+            // ThreadLocal 线程域
+
             // 获取 authorities 信息
             List<Map<String, String>> authoritiesMaps = (List<Map<String, String>>) claims.get("authorities");
             Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -89,11 +91,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         authorities.add(new SimpleGrantedAuthority(authority));
                     }
                 }
-            }
+            } // session
 
             //存入SecurityContextHolder
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId,null,authorities);
+//            HashMap<Object, Object> map = new HashMap<>();
+//            map.put("userId",userId);
+            MutableUsernamePasswordAuthenticationToken authenticationToken = new MutableUsernamePasswordAuthenticationToken(
+                    userId,
+                    null,
+                    authorities
+            );
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+//            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId,null,authorities);
+//            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             try {
                 // 继续处理请求
                 filterChain.doFilter(request, response);
