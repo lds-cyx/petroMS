@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="180" packages="">
+    <properties>
+        <property name="logdir">logs</property>
+        <property name="PATTERN">%date{YYYY-MM-dd HH:mm:ss,SSS} %level [%thread][%file:%line] - %msg%n%throwable</property>
+    </properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+
+        <RollingFile name="ErrorAppender" fileName="${logdir}/error.log"
+            filePattern="${logdir}/$${date:yyyy-MM-dd}/error.%d{yyyy-MM-dd-HH}.log" append="true">
+            <PatternLayout pattern="${PATTERN}"/>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="DebugAppender" fileName="${logdir}/info.log"
+            filePattern="${logdir}/$${date:yyyy-MM-dd}/info.%d{yyyy-MM-dd-HH}.log" append="true">
+            <PatternLayout pattern="${PATTERN}"/>
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+        
+        <!--异步appender-->
+         <Async name="AsyncAppender" includeLocation="true">
+            <AppenderRef ref="ErrorAppender"/>
+            <AppenderRef ref="DebugAppender"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <!-- 核心优化：屏蔽特定警告 -->
+        <Logger name="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean" level="ERROR"/>
+        <Logger name="org.mybatis.spring.mapper.ClassPathMapperScanner" level="ERROR"/>
+
+        <!-- 控制框架日志级别 -->
+        <Logger name="org.springframework" level="INFO"/>
+        <Logger name="org.mybatis" level="INFO"/>
+        <Logger name="com.baomidou.mybatisplus" level="INFO"/>
+        <Logger name="org.apache.ibatis" level="INFO"/>
+        <Logger name="springfox" level="INFO"/>
+
+        <!-- 只显示SQL执行，不显示Mapper注册过程 -->
+        <Logger name="com.lds.admin.mapper" level="DEBUG"/>
+
+        <!-- 显示SQL参数绑定 -->
+        <Logger name="org.apache.ibatis.type" level="DEBUG"/>
+
+        <!-- 其他常用配置 -->
+        <Logger name="org.springframework.web" level="INFO"/>
+        <Logger name="org.springframework.security" level="INFO"/>
+
+        <!-- Root级别设为INFO，减少不必要的DEBUG输出 -->
+        <Root level="INFO" includeLocation="true">
+            <AppenderRef ref="AsyncAppender"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

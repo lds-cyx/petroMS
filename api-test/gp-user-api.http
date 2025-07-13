@@ -1,0 +1,42 @@
+###
+POST http://localhost:63010/user/register
+Content-Type: application/json
+
+{
+  "cellphone": "12345",
+  "username": "testuser",
+  "password": "testpassword",
+  "email": "test@example.com"
+}
+
+### 密码模式
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+  "username": "lds",
+  "password": "111111"
+}
+
+### 密码模式
+POST http://localhost:8080/user/test
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDcyMDQwNjAsInVzZXJJZCI6MSwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6ImFkZCJ9LHsiYXV0aG9yaXR5IjoiZGVsZXRlIn0seyJhdXRob3JpdHkiOiJzZWxlY3QifSx7ImF1dGhvcml0eSI6InVwZGF0ZSJ9XX0.X4vPdaXr8evh-VJ2BgnGlPiVIo45KTVtrt34gxMCLkE
+
+### 密码模式
+POST http://localhost:8080/user/test1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDcyMDQwNjAsInVzZXJJZCI6MSwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6ImFkZCJ9LHsiYXV0aG9yaXR5IjoiZGVsZXRlIn0seyJhdXRob3JpdHkiOiJzZWxlY3QifSx7ImF1dGhvcml0eSI6InVwZGF0ZSJ9XX0.X4vPdaXr8evh-VJ2BgnGlPiVIo45KTVtrt34gxMCLkE
+
+
+###
+POST http://localhost:8081/register/1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDY2OTUwMTMsInVzZXJJZCI6IjUxIiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6InRlc3QifV19.AkTIko3nH_-6nt_RkgeLJC7aF9s72mzgZ6EoOVJnrZE
+#Authorization
+
+
+
+###
+POST http://localhost:8081/register/2
+
